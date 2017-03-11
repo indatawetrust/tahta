@@ -2,9 +2,9 @@
 
 ```javascript
 
-// random
-
 const tahta = require('tahta')
+
+// random
 
 const avatar = tahta()
 
