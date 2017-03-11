@@ -12,5 +12,8 @@
     "generator"
   ],
   "author": "indatawetrust",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^1.6.4"
+  }
 }
