@@ -1,7 +1,23 @@
 const tahta = (opt) => {
 
-  const canvas = document.createElement('canvas'),
-    		c = canvas.getContext('2d'),
+  let canvas = null
+
+  if (opt) {
+    opt.size = opt.size ? opt.size : 100
+  } else {
+    opt = {}
+    opt.size = opt.size ? opt.size : 100
+  }
+
+  if (typeof window !== 'undefined') {
+  	canvas = document.createElement('canvas')
+  } else {
+    let Canvas = new require('canvas')
+
+    canvas = new Canvas(opt.size, opt.size)
+  }
+
+  const c = canvas.getContext('2d'),
         uuid = () => 'xxxxxxxxxxxxxxxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
           var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8)
           return v.toString(16)
@@ -32,15 +48,27 @@ const tahta = (opt) => {
   canvas.width = opt.size
   canvas.height = opt.size
 
-  let id = uuid()+"abcdef0123456789"[Math.floor(Math.random()*16)],
+  let id = opt.meta ? opt.meta.split('#')[0] : uuid()+"abcdef0123456789"[Math.floor(Math.random()*16)],
       arr = [],
-      arr_arg = arg()
+      arr_arg = opt.meta ? opt.meta.split('#')[1] : arg()
+
+  if (!opt.meta) {
+    opt.meta = id+'#'+(arr_arg.toString().replace(/,/g, ''))
+  } else {
+    let stack_arg = []
+    arr_arg = arr_arg.split('')
+    while (arr_arg.length > 0) {
+      stack_arg.push(parseInt(arr_arg.splice(0, 2).join('')))
+    }
+    arr_arg = stack_arg
+  }
 
   id = id.split('')
   c.clearRect(0,0,opt.size,opt.size)
 
-  while (id.length > 0)
-      arr.push('#'+id.splice(0, 3).join(''))
+  while (id.length > 0) {
+    arr.push('#'+id.splice(0, 3).join(''))
+  }
 
   let w = 0
 
@@ -58,6 +86,15 @@ const tahta = (opt) => {
     c.restore()
   }
 
-  return canvas.toDataURL()
+  return {
+    meta: opt.meta,
+    dataURI: canvas.toDataURL()
+  }
 
+}
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = tahta
+} else {
+  window.tahta = tahta
 }
