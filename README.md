@@ -1,4 +1,6 @@
-[demo](https://jsfiddle.net/99frub1w/)
+[browser demo](https://jsfiddle.net/99frub1w/)
+
+[node.js demo](https://runkit.com/58c3c6a5864b970014628998/58c458dd5f72c8001438e9ae/branches/master)
 
 ```javascript
 
