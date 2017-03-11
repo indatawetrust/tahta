@@ -1,10 +1,10 @@
-[demo](https://jsfiddle.net/a3216d3t/2/)
+[demo](https://jsfiddle.net/99frub1w/)
 
 ```javascript
 
-// random
-
 const tahta = require('tahta')
+
+// random
 
 const avatar = tahta()
 
