@@ -8,7 +8,7 @@ const tahta = require('tahta')
 
 // random
 
-const avatar = tahta()
+let avatar = tahta()
 
 console.log(avatar)
 
